@@ -1,6 +1,6 @@
-# 🚀 Crypto Tracker & NFT Analytics Platform
+# 🚀 Exchange-Style Crypto & NFT Market Dashboard
 
-A comprehensive full-stack cryptocurrency and NFT tracking platform built with Next.js 15, featuring real-time data, market analytics, and social sentiment analysis.
+Binance-like market experience built with Next.js 15: live crypto listings, deep market boards, curated news, and NFT discovery in a single responsive dashboard.
 
 ## 🌟 Live Demo
 
@@ -8,26 +8,25 @@ A comprehensive full-stack cryptocurrency and NFT tracking platform built with N
 
 ## ✨ Features
 
-### Cryptocurrency Tracking
-- 📊 **Real-time Price Data** - Live cryptocurrency prices via CoinGecko API
-- 📈 **Market Analytics** - 24-hour volume tracking and market cap rankings
-- 🔍 **Advanced Search** - Quick search across all listed cryptocurrencies
-- 📰 **Crypto News Integration** - Latest news and market updates
-- ⭐ **Favorites System** - Save and track your favorite coins
+### Market Dashboard
+- 📊 **Live Market Board** - Real-time prices, 24h change, volume, and market cap
+- 🧭 **Discover & Filter** - Quick search and category filters for listed pairs
+- 📰 **Curated News Rail** - Latest market headlines beside the ticker/price grid
+- ⭐ **Watchlist** - Save favorite coins for fast access
 
-### NFT Analytics
-- 🎨 **NFT Collections** - Browse top NFT collections with real-time data
-- 📊 **Rankings Dashboard** - Track collection performance and metrics
-- 🔗 **OpenSea Integration** - Direct integration with OpenSea API
+### NFT Discovery
+- 🎨 **Seamless NFT Slider** - 20-item infinite carousel fed by OpenSea
+- 📊 **Collection Rankings** - Performance snapshots for top collections
+- 🔗 **OpenSea Integration** - Pulls live collection imagery and stats
 
-### Social Sentiment
-- 💬 **Reddit Integration** - Track crypto discussions and community sentiment
-- 📊 **Social Analytics** - Aggregate social media mentions and trends
+### Social & Sentiment
+- 💬 **Reddit Pulse** - Community buzz surfaced from crypto subreddits
+- 📈 **Trending Signals** - Lightweight sentiment cues alongside news
 
-### User Features
-- 🔐 **Authentication System** - Secure login/signup with JWT
-- 👤 **User Profiles** - Personalized dashboard and preferences
-- 🔔 **Real-time Updates** - WebSocket integration for live data
+### User & App Experience
+- 🔐 **Auth** - Login/signup flow (JWT) to personalize watchlists
+- ⚡ **Realtime Feeds** - WebSocket-driven updates on the dashboard
+- 🛡️ **Security Hardening** - Credential hygiene, cert handling, and API key hygiene
 
 ## 🛠️ Tech Stack
 
