@@ -2,9 +2,10 @@
 "use client";
 
 import { useEffect } from "react";
+import { Coin } from "@/types/coin";
 
 interface ScrollerAnimationProps {
-  coinData: any[]; // Burayı CoinInfo türü ile değiştirebilirsiniz
+  coinData: Coin[];
 }
 
 const ScrollerAnimation: React.FC<ScrollerAnimationProps> = ({ coinData }) => {

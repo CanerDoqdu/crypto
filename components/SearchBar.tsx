@@ -2,9 +2,10 @@
 "use client";
 import React, { useState } from "react";
 import useSearch from "@/hooks/useSearch"; // Ensure this hook returns JSX-compatible content
+import { NFTData } from "@/types/coin";
 
 type ClientSearchComponentProps = {
-  initialNfts: any[]; // Adjust the type based on your NFT data structure
+  initialNfts: NFTData[];
 };
 
 export default function ClientSearchComponent({ initialNfts }: ClientSearchComponentProps) {

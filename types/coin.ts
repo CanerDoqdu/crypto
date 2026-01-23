@@ -6,4 +6,28 @@ export interface Coin {
     price: number;
     marketCap: number;
     changePercentage: number;
-  }
+}
+
+export interface CryptoCompareData {
+    Name: string;
+    FullName: string;
+    TotalVolume?: number | string;
+    totalVolume24h?: string;
+}
+
+export interface NFTData {
+    name: string;
+    image?: string;
+    description?: string;
+    [key: string]: unknown;
+}
+
+export interface RedditPost {
+    id: string;
+    title: string;
+    author: string;
+    url: string;
+    score: number;
+    created_utc: number;
+    [key: string]: unknown;
+}

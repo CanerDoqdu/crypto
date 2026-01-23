@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import { NFTData } from "@/types/coin";
 
 const options = {
   method: "GET",
@@ -44,12 +45,12 @@ export const getCombinedData = async (offset: number, limit: number) => {
       try {
         const collections = await getCollectionsData(offset, limit);
 
-        const statsPromises = collections.map(async (collection: any) => {
+        const statsPromises = collections.map(async (collection: NFTData) => {
           try {
-            const stats = await getStatsData(collection.collection);
+            const stats = await getStatsData(collection.name);
             return { collection, stats };
           } catch (error) {
-            console.error(`Failed to fetch stats for ${collection.collection}:`, error);
+            console.error(`Failed to fetch stats for ${collection.name}:`, error);
             // Fallback to returning collection with null stats
             return { collection, stats: null };
           }

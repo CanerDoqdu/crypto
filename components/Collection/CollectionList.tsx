@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import StarToggle from "@/components/StarToggle";
 import LoadMoreButton from "@/components/loading/LoadMoreButton";
+import { NFTData } from "@/types/coin";
 
 interface CollectionItemProps {
-  collection: any;
+  collection: NFTData;
 }
 
 const CollectionList: React.FC<{ initialData: CollectionItemProps[] }> = ({ initialData }) => {
