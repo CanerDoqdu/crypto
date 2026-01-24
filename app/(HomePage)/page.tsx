@@ -4,6 +4,7 @@ import EngagementSection from "./(ui)/EngagementSection";
 import WhyCold from "./(ui)/whycold";
 import DiscoverNfts from "./(ui)/discovernfts";
 import { Suspense } from "react";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { 
   HeroSkeleton, 
   CarouselSectionSkeleton,
@@ -20,23 +21,25 @@ export const metadata: Metadata = {
 
 const HomePage = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section>
-      <Suspense fallback={<HeroSkeleton />}>
-        <HeroSection />
-      </Suspense>
-      <Suspense fallback={<CarouselSectionSkeleton />}>
-        <CarouselSection />
-      </Suspense>
-      <Suspense fallback={<EngagementSectionSkeleton />}>
-        <EngagementSection/>
-      </Suspense>
-      <Suspense fallback={<WhyColdSkeleton />}>
-        <WhyCold />
-      </Suspense>
-      <Suspense fallback={<DiscoverNFTSSkeleton />}>
-        <DiscoverNfts />
-      </Suspense>
-    </section>
+    <ErrorBoundary>
+      <section>
+        <Suspense fallback={<HeroSkeleton />}>
+          <HeroSection />
+        </Suspense>
+        <Suspense fallback={<CarouselSectionSkeleton />}>
+          <CarouselSection />
+        </Suspense>
+        <Suspense fallback={<EngagementSectionSkeleton />}>
+          <EngagementSection/>
+        </Suspense>
+        <Suspense fallback={<WhyColdSkeleton />}>
+          <WhyCold />
+        </Suspense>
+        <Suspense fallback={<DiscoverNFTSSkeleton />}>
+          <DiscoverNfts />
+        </Suspense>
+      </section>
+    </ErrorBoundary>
   );
 };
 

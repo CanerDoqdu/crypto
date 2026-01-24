@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${titillium_Web.variable}`}>
-      <body className="bg-black h-full">
+      <body className="bg-black h-full" suppressHydrationWarning>
         <AuthContextProvider>
           <Navbar />
           {children}
