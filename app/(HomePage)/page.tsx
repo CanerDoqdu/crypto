@@ -3,6 +3,14 @@ import CarouselSection from "./(ui)/carouselsection";
 import EngagementSection from "./(ui)/EngagementSection";
 import WhyCold from "./(ui)/whycold";
 import DiscoverNfts from "./(ui)/discovernfts";
+import { Suspense } from "react";
+import { 
+  HeroSkeleton, 
+  CarouselSectionSkeleton,
+  EngagementSectionSkeleton,
+  WhyColdSkeleton,
+  DiscoverNFTSSkeleton 
+} from "@/components/loading/LoadingSkeleton";
 
 import type { Metadata } from "next";
 
@@ -13,12 +21,21 @@ export const metadata: Metadata = {
 const HomePage = ({ children }: { children: React.ReactNode }) => {
   return (
     <section>
-      <HeroSection />
-      <CarouselSection />
-      <EngagementSection/>
-      <WhyCold />
-      <DiscoverNfts />
-      
+      <Suspense fallback={<HeroSkeleton />}>
+        <HeroSection />
+      </Suspense>
+      <Suspense fallback={<CarouselSectionSkeleton />}>
+        <CarouselSection />
+      </Suspense>
+      <Suspense fallback={<EngagementSectionSkeleton />}>
+        <EngagementSection/>
+      </Suspense>
+      <Suspense fallback={<WhyColdSkeleton />}>
+        <WhyCold />
+      </Suspense>
+      <Suspense fallback={<DiscoverNFTSSkeleton />}>
+        <DiscoverNfts />
+      </Suspense>
     </section>
   );
 };

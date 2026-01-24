@@ -1,9 +1,10 @@
 // hooks/useSearch.ts
 import { useState, useEffect } from "react";
+import { NFTData } from "@/types/coin";
 
-export default function useSearch(initialNfts: any[]) {
+export default function useSearch(initialNfts: NFTData[]) {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredNfts, setFilteredNfts] = useState<any[]>(initialNfts);
+  const [filteredNfts, setFilteredNfts] = useState<NFTData[]>(initialNfts);
 
   useEffect(() => {
     if (searchQuery) {

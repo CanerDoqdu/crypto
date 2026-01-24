@@ -12,7 +12,6 @@ import CryptoPriceUpdater from "@/components/CryptoPrices";
 import { WebSocketProvider } from "@/components/WebSocketContext";
 import Image from "next/image";
 import Link from "next/link";
-
 import RedditSection from '@/components/redditapi/RedditSection'
 
 const Hero = async () => {
@@ -28,6 +27,26 @@ const Hero = async () => {
       fetchNews(),
       fetchNftInfo(),
     ]);
+
+  // Filter out NFTs with missing or non-renderable images to avoid broken thumbnails
+  const filteredNfts = nftInfos.filter((nft) => {
+    if (!nft.image_url) return false;
+    const url = nft.image_url.toLowerCase();
+    const hasValidExt = /(\.png|\.jpg|\.jpeg|\.webp)$/i.test(url);
+    const isHttp = url.startsWith("http://") || url.startsWith("https://");
+    return hasValidExt && isHttp;
+  });
+
+  const nftFallbackImg =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%2318202c'/%3E%3Ctext x='50%25' y='50%25' fill='%235f708a' font-family='Arial' font-size='16' text-anchor='middle' dominant-baseline='middle'%3ENFT%3C/text%3E%3C/svg%3E";
+
+  // Shuffle to present random NFTs on each request and cap to 20 items for layout stability
+  const shuffled = [...filteredNfts];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  const displayNfts = shuffled.slice(0, 20);
   return (
     <WebSocketProvider>
       <section className="flex justify-between h-lvh  text-white bg-black">
@@ -58,63 +77,63 @@ const Hero = async () => {
     </div>
           </div>
 
-          <div className="w-[542px] h-[211px] rounded-[20px] bg-[#0d131d] mt-[75px]">
-            <div className="flex justify-between mx-6 my-5">
-              <p className="text-[16px]">Trending</p>
-              <p className="text-[15px]">view more</p>
-            </div>
-            <div>
-              {coinSymbols.map((coinSymbol, index) => {
-                const coinInfo = coinInfos.find(
-                  (info) => info.Name === coinSymbol,
-                );
-                const price = initialPrices[coinSymbol];
-                const change = cryptoChanges[coinSymbol];
+          <div className="flex flex-col">
+            <div className="w-[542px] h-[200px] rounded-[20px] bg-[#0d131d] mt-12">
+              <div className="flex justify-between mx-6 my-5">
+                <p className="text-[16px]">Trending</p>
+                 <Link
+                    href={{
+                      pathname: "/allcryptolistings",
+                    }}
+                  >
+                    View All Coins
+                  </Link>
+              </div>
+              <div>
+                {coinSymbols.map((coinSymbol, index) => {
+                  const coinInfo = coinInfos.find(
+                    (info) => info.Name === coinSymbol,
+                  );
+                  const price = initialPrices[coinSymbol];
+                  const change = cryptoChanges[coinSymbol];
 
-                return (
-                  <div key={coinSymbol} className="flex items-center mx-6 my-3">
-                    <img
-                      src={coinInfo?.ImageUrl}
-                      alt={coinInfo?.Name}
-                      className="w-7 h-7 mr-1"
-                    />
-                    <div className="flex flex-grow gap-1 items-end">
-                      <h3 className="text-sm font-semibold">
-                        {coinInfo?.Name}
-                      </h3>
-                      <p className="text-xs">{coinInfo?.FullName}</p>
-                    </div>
-                    <div className="flex gap-3 items-baseline">
-                      <CryptoPriceUpdater
-                        coin={coinSymbol}
-                        initialPrice={price}
+                  return (
+                    <div key={coinSymbol} className="flex items-center mx-6 my-3">
+                      <img
+                        src={coinInfo?.ImageUrl}
+                        alt={coinInfo?.Name}
+                        className="w-7 h-7 mr-1"
                       />
-                      <p
-                        className={`text-sm ${
-                          parseFloat(change) > 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
-                      >
-                        {change}%
-                      </p>
+                      <div className="flex flex-grow gap-1 items-end">
+                        <h3 className="text-sm font-semibold">
+                          {coinInfo?.Name}
+                        </h3>
+                        <p className="text-xs">{coinInfo?.FullName}</p>
+                      </div>
+                      <div className="flex gap-3 items-baseline">
+                        <CryptoPriceUpdater
+                          coin={coinSymbol}
+                          initialPrice={price}
+                        />
+                        <p
+                          className={`text-sm ${
+                            parseFloat(change) > 0
+                              ? "text-green-500"
+                              : "text-red-500"
+                          }`}
+                        >
+                          {change}%
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-               <div className="mt-3 pl-9">
-                <Link
-                  href={{
-                    pathname: "/allcryptolistings",
-                  }}
-                >
-                  View All Coins
-                </Link>
+                  );
+                })}
+                
               </div>
             </div>
 
             {/* News Section */}
-            <div className="text-sm w-[542px] h-[181px] rounded-[20px] bg-[#0d131d] mt-24">
+            <div className="text-sm w-[542px] h-[181px] rounded-[20px] bg-[#0d131d] mt-10">
               <div className="pt-4 pl-6">
                 <p className="mb-4 text-[16px] font-bold">News</p>
                 {newsArticles.map((article, index) => (
@@ -126,37 +145,45 @@ const Hero = async () => {
               </div>
             </div>
 
-            {/* NFT Section */}
-            <div className="text-sm w-[542px] h-[170px] rounded-[20px] bg-[#0d131d] mt-8 pt-3 overflow-x-auto">
-              <p className="pl-9 pb-2">NFT's</p>
-              <div className="flex space-x-4 items-center pl-9 ">
-                {nftInfos.map((nft, index) => (
-                  <div key={index} className="flex-shrink-0 text-center">
-                    <link
-                      key={nft.image_url}
-                      rel="preload"
-                      href={nft.image_url}
-                      as="image"
-                      type="image/png"
-                    />
-                    <Image
-                      src={nft.image_url.replace(/\.(png|jpg|jpeg)$/, ".webp")}
-                      alt={nft.name}
-                      width={65}
-                      height={65}
-                      className="mb-2 rounded-lg w-[65px] h-[65px]  object-fit transition-transform duration-200 ease-in-out transform hover:scale-125"
-                      quality={75}
-                      priority
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,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"
-                    />
-                    <p className="text-white text-xs w-[60px] overflow-hidden whitespace-nowrap text-ellipsis">
-                      {nft.name}
-                    </p>
-                  </div>
-                ))}
+            {/* NFT Section - seamless horizontal slider */}
+            <div className="text-sm w-[542px] rounded-[20px] bg-[#0d131d] mt-10 overflow-hidden relative">
+              <div className="flex items-center pt-4 pl-6 h-12">
+                <p>NFT's</p>
               </div>
-              <div className="mt-3 pl-9">
+
+              <div className="relative overflow-hidden mx-7">
+                <div className="absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-[#0d131d] to-transparent pointer-events-none z-10" />
+                <div className="absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-[#0d131d] to-transparent pointer-events-none z-10" />
+
+                {displayNfts.length === 0 ? (
+                  <div className="pl-6 pb-4">
+                    <p className="text-gray-400 text-xs">No NFT thumbnails available right now.</p>
+                  </div>
+                ) : (
+                  <div className="nft-scroller" data-animated="true">
+                    <div className="nft-track pl-6">
+                      {[...displayNfts, ...displayNfts].map((nft, i) => (
+                        <div key={`${nft.name}-${i}`} className="nft-item">
+                          <Image
+                            src={nft.image_url || nftFallbackImg}
+                            alt={nft.name}
+                            width={65}
+                            height={65}
+                            className="nft-img"
+                            quality={60}
+                            loading="lazy"
+                            placeholder="blur"
+                            blurDataURL={nftFallbackImg}
+                          />
+                          <p className="nft-name">{nft.name}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="pt-2 pl-6 pb-4">
                 <Link
                   href={{
                     pathname: "/nftrankings",
