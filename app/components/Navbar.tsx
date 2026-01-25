@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import LogoutButton from "./logoutbutton";
+import LogoutButton from "./LogoutButton";
 import { UseAuthContext } from "@/hooks/UseAuthContext";
 import logo from "@/public/images/Group.svg";
 
@@ -35,14 +35,14 @@ const Navbar = () => {
           {!user && (
             <div className="flex gap-4">
               <button
-                className="text-button-Text bg-button-Primary    hover:bg-button-Hover hover:border-b-button-HoverSecondary
-             border-b-4 rounded-md border-b-button-Secondary px-6 py-1.5 text-xs font-semibold"
+                className="text-black font-bold bg-emerald-500 hover:bg-emerald-400 hover:border-b-emerald-600
+             border-b-4 rounded-md border-b-emerald-700 px-6 py-1.5 text-xs"
               >
                 <Link href="/signup">signup</Link>
               </button>
               <button
-                className="text-button-Text  bg-button-Primary   hover:bg-button-Hover hover:border-b-button-HoverSecondary
-             border-b-4 rounded-md border-b-button-Secondary  px-6 py-1.5 text-xs font-semibold"
+                className="text-white bg-gray-800 hover:bg-gray-700 hover:border-b-gray-600
+             border-b-4 rounded-md border-b-gray-900 px-6 py-1.5 text-xs font-semibold"
               >
                 <Link href="/login">Login</Link>
               </button>

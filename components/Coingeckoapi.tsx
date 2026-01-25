@@ -17,14 +17,35 @@ export const getCryptoPrices = async () => {
   }
 
   // Veriyi API'den çek
-  const res = await fetch(
-    `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,cardano,ripple,dogecoin&vs_currencies=usd`
-  );
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
+  // Server Components should not call internal API via relative URL.
+  // Use upstream on server; use internal API only on client.
+  const isServer = typeof window === 'undefined';
+  const url = isServer
+    ? `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,cardano,ripple,dogecoin&vs_currencies=usd`
+    : `/api/coingecko/simple_price?ids=bitcoin,ethereum,solana,cardano,ripple,dogecoin&vs_currencies=usd`;
 
-  const data = await res.json();
+  let data: any;
+  try {
+    const res = await fetch(url, isServer ? { next: { revalidate: 30 } } : {});
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    data = await res.json();
+  } catch (err) {
+    // Fallback to cached values if available
+    if (cachedPrices.BTC) {
+      console.warn('Simple price fetch failed, returning cached data');
+      return {
+        BTC: cachedPrices.BTC,
+        ETH: cachedPrices.ETH,
+        SOL: cachedPrices.SOL,
+        ADA: cachedPrices.ADA,
+        XRP: cachedPrices.XRP,
+        DOGE: cachedPrices.DOGE,
+      };
+    }
+    throw err;
+  }
  
 const prices = {
   BTC: data.bitcoin.usd,

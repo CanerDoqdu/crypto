@@ -85,7 +85,7 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
 
   const getChangeColor = (change?: number) => {
     if (!change) return 'text-gray-300';
-    return change >= 0 ? 'text-green-400' : 'text-red-400';
+    return change >= 0 ? 'text-emerald-400' : 'text-red-400';
   };
 
   const getChainBadgeColor = (chain?: string) => {

@@ -14,7 +14,7 @@ const ClientOnlyMarketCapData = () => {
         >
           <h2 className="text-2xl font-semibold">{coin.FullName}</h2>
           <p className="text-gray-400">Symbol: {coin.Name}</p>
-          <p className="text-green-400">24h Volume: ${coin.totalVolume24h}</p>
+          <p className="text-emerald-400">24h Volume: ${coin.totalVolume24h}</p>
         </div>
       ))}
     </div>

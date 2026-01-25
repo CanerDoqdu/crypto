@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Ana Sayfa", // Ana sayfa için başlık
 };
 
-const HomePage = ({ children }: { children: React.ReactNode }) => {
+const HomePage = () => {
   return (
     <ErrorBoundary>
       <section>

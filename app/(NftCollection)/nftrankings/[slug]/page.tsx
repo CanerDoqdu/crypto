@@ -11,14 +11,24 @@ import ExpandableText from "@/hooks/useLineClamp";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import NFTGridWrapper from "@/components/NftComponents/NFTGridWrapper";
 
+interface Params {
+  slug: string;
+}
+
+interface SearchParams {
+  search?: string;
+}
+
 export default async function CollectionPage({
   params,
   searchParams,
 }: {
-  params: { slug: string };
-  searchParams: { search?: string }; // Optional search query
+  params: Promise<Params>;
+  searchParams: Promise<SearchParams>;
 }) {
-  const slug = params.slug;
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const slug = resolvedParams.slug;
 
   try {
     const collection = await getCollectionItems(slug);
@@ -33,7 +43,7 @@ export default async function CollectionPage({
     }
 
     // Use a default value for search query to avoid undefined error
-    const searchQuery = searchParams.search || ""; // Fallback to empty string if undefined
+    const searchQuery = resolvedSearchParams.search || ""; // Fallback to empty string if undefined
     const offers = await Promise.all(
       nfts.map(async (nft) => ({
         identifier: nft.identifier,

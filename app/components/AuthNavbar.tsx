@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import LogoutButton from "./logoutbutton";
+import LogoutButton from "./LogoutButton";
 import { UseAuthContext } from "@/hooks/UseAuthContext";
 import logo from "@/public/images/Group.svg";
 import { usePathname } from 'next/navigation';

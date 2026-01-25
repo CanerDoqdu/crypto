@@ -22,10 +22,10 @@ const Footer = () => {
             <p className="mb-4">Take your crypto trading to the <br/> <span className=" ml-14 font-semibold text-white"> NEXT LEVEL</span></p>
 
             <div className="grid w-3/6">
-              <button className="bg-green-500 text-white  py-2 rounded-lg mb-2">
+              <button className="bg-emerald-500 text-black font-bold py-2 rounded-lg mb-2 hover:bg-emerald-400 transition">
                 Create Account
               </button>
-              <button className="bg-transparent text-white px-4 py-2 border border-gray-400 rounded-lg">
+              <button className="bg-transparent text-white px-4 py-2 border border-gray-600 rounded-lg hover:border-emerald-500/50 hover:bg-emerald-900/20 transition">
                 Sign in
               </button>
             </div>
