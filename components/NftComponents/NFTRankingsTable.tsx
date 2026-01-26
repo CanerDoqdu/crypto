@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import NeonSnakeAnimation from '@/components/NftComponents/NeonSnakeAnimation';
@@ -126,6 +127,7 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
           // Extract data from OpenSea format
           const name = collection.name;
           const image = collection.image_url || collection.image;
+          const slug = collection.collection || collection.slug || collectionId;
           const oneDay = stats?.intervals?.find((i: any) => i.interval === 'one_day');
           const sevenDay = stats?.intervals?.find((i: any) => i.interval === 'seven_day');
           const floorPrice = stats?.total?.floor_price ?? collection.floorPrice;
@@ -136,12 +138,16 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
             : collection.priceChange24h;
 
           return (
-            <div
+            <Link
               key={`nft-${index}-${collectionId}`}
-              data-nft-row
-              className="hidden lg:grid gap-4 px-6 py-4 bg-gray-900/10 hover:bg-gray-900/30 transition-colors rounded-lg border border-gray-700/10"
-              style={{ gridTemplateColumns: '60px 30px 1fr 140px 110px 140px 140px' }}
+              href={`/nftrankings/${slug}`}
+              className="block"
             >
+              <div
+                data-nft-row
+                className="hidden lg:grid gap-4 px-6 py-4 bg-gray-900/10 hover:bg-gray-900/30 transition-colors rounded-lg border border-gray-700/10 cursor-pointer hover:border-emerald-500/30"
+                style={{ gridTemplateColumns: '60px 30px 1fr 140px 110px 140px 140px' }}
+              >
               {/* Rank - using global position in data array */}
               <div className="flex items-center">
                 <span className="text-sm font-semibold text-gray-400">#{index + 1}</span>
@@ -212,7 +218,8 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
               <div className="flex items-center justify-end text-sm text-white font-semibold">
                 {formatPrice(marketCap)}
               </div>
-            </div>
+              </div>
+            </Link>
           );
         })}
       </div>
@@ -229,16 +236,21 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
 
           const name = collection.name;
           const image = collection.image_url || collection.image;
+          const slug = collection.collection || collection.slug || collectionId;
           const floorPrice = stats?.floor_price || collection.floorPrice;
           const volume24h = stats?.total?.volume || collection.volume24h;
           const marketCap = stats?.market_cap || collection.marketCap;
           const priceChange = stats?.floor_price_change || collection.priceChange24h;
 
           return (
-            <div
+            <Link
               key={`nft-mobile-${index}-${collectionId}`}
-              className="bg-gray-900/20 border border-gray-700/20 rounded-lg p-4 hover:bg-gray-900/40 transition-colors"
+              href={`/nftrankings/${slug}`}
+              className="block"
             >
+              <div
+                className="bg-gray-900/20 border border-gray-700/20 rounded-lg p-4 hover:bg-gray-900/40 transition-colors cursor-pointer hover:border-emerald-500/30"
+              >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   {image && (
@@ -292,7 +304,8 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
                   <p className="text-white font-semibold">{formatPrice(marketCap)}</p>
                 </div>
               </div>
-            </div>
+              </div>
+            </Link>
           );
         })}
       </div>

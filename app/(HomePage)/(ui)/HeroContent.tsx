@@ -133,9 +133,15 @@ export default function HeroContent({
                 <p className="text-xs font-semibold mb-2 uppercase tracking-wide text-gray-300">News</p>
                 <div className="space-y-1">
                   {newsArticles.slice(0, 3).map((article, index) => (
-                    <p key={index} className="text-xs text-gray-400 line-clamp-1">
+                    <a 
+                      key={index} 
+                      href={article.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-xs text-gray-400 line-clamp-1 hover:text-white transition-colors cursor-pointer"
+                    >
                       {article.title}
-                    </p>
+                    </a>
                   ))}
                 </div>
               </div>

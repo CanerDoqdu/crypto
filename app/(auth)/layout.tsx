@@ -1,4 +1,3 @@
-import Navbar from "../components/AuthNavbar";
 import "../globals.css";
 import titillium_Web from "../fonts";
 import { AuthContextProvider } from "@/context/AuthContext";
@@ -39,7 +38,6 @@ export default function RootLayout({
         <ScrollPreserver>
           <AuthContextProvider>
             <ErrorBoundary>
-              <Navbar />
               {children}
             </ErrorBoundary>
           </AuthContextProvider>

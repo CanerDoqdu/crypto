@@ -62,16 +62,21 @@ export default function NFTGridWrapper({
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <GridIcons onGridChange={handleGridChange} /> {/* Grid icon component */}
-        <h2 className="text-2xl font-semibold">Items</h2>
-        <select
-          onChange={handleSortChange}
-          className="bg-gray-800 p-2 rounded text-gray-300"
-        >
-          <option value="price-low-high">Price low to high</option>
-          <option value="price-high-low">Price high to low</option>
-        </select>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl font-semibold text-white">Items</h2>
+          <span className="text-sm text-gray-400">({sortedNfts.length} items)</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <GridIcons onGridChange={handleGridChange} />
+          <select
+            onChange={handleSortChange}
+            className="bg-gray-900 px-4 py-2 rounded-lg text-gray-300 border border-gray-700 focus:outline-none focus:border-gray-500 transition-colors cursor-pointer hover:border-gray-600"
+          >
+            <option value="price-low-high">Price: Low to High</option>
+            <option value="price-high-low">Price: High to Low</option>
+          </select>
+        </div>
       </div>
       <NFTGrid slug={slug} initialNfts={sortedNfts} gridCount={gridCount} offers={offers} />
     </div>
