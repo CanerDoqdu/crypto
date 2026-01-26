@@ -8,6 +8,14 @@ import { UseAuthContext } from "@/hooks/UseAuthContext";
 import logo from "@/public/images/Group.svg";
 import { usePathname } from 'next/navigation';
 
+const navLinks = [
+  { name: 'Markets', href: '/markets' },
+  { name: 'News', href: '/news' },
+  { name: 'Learn', href: '/learn' },
+  { name: 'Support', href: '/support' },
+  { name: 'NFTs', href: '/nftrankings' },
+];
+
 const Navbar = () => {
   const { state } = UseAuthContext();
   const { user } = state;
@@ -19,19 +27,35 @@ const Navbar = () => {
     <div className="relative"> {/* Parent container with relative positioning */}
       <div className={`h-16 ${isNftRankingsPage ? "bg-transparent" : "bg-BackgroundPrimary"} transition-all absolute top-0 left-0 right-0 z-20`}>
         <div className="flex justify-between items-center w-navbar max-w-[1036px] h-full mx-auto">
-          <Link href="/">
-            <div className="flex items-center">
-              <Image
-                src={logo}
-                alt="Picture of the logo"
-                priority
-                style={{ width: "30px", height: "auto" }}
-              />
-              <span className="text-textPrimary text-center text-xl font-semibold pl-2 mt-1">
-                COLD
-              </span>
-            </div>
-          </Link>
+          {/* Logo and Nav Links */}
+          <div className="flex items-center gap-8">
+            <Link href="/">
+              <div className="flex items-center">
+                <Image
+                  src={logo}
+                  alt="Picture of the logo"
+                  priority
+                  style={{ width: "30px", height: "auto" }}
+                />
+                <span className="text-textPrimary text-center text-xl font-semibold pl-2 mt-1">
+                  COLD
+                </span>
+              </div>
+            </Link>
+            
+            {/* Navigation Links */}
+            <nav className="hidden md:flex items-center gap-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="text-gray-400 hover:text-white text-sm font-medium transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+          </div>
           
           {!user && (
             <div className="flex gap-4">
