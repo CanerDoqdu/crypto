@@ -144,7 +144,15 @@ export default function HeroContent({
               className="w-full lg:w-[542px] rounded-[20px] bg-gray-950 border border-gray-800 p-3 sm:p-4 space-y-3 shadow-lg shadow-emerald-900/20 hover:shadow-emerald-900/40 transition-all duration-300 hover:border-emerald-500/30"
             >
               <div>
-                <p className="text-xs font-semibold mb-2 uppercase tracking-wide text-gray-300">News</p>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gray-300">News</p>
+                  <Link
+                    href="/news"
+                    className="text-xs text-emerald-400/70 hover:text-emerald-400 transition-colors duration-200 font-medium"
+                  >
+                    View More
+                  </Link>
+                </div>
                 <div className="space-y-1">
                   {newsArticles.slice(0, 3).map((article, index) => (
                     <a 
