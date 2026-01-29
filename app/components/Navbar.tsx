@@ -63,7 +63,7 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <div className="sticky top-0 z-50">
       <div className="bg-white/80 dark:bg-[#0d131d] backdrop-blur-md h-16 border-b border-gray-200/80 dark:border-transparent shadow-sm shadow-gray-200/50 dark:shadow-none">
         <div className="flex justify-between items-center w-11/12 md:w-4/5 h-full mx-auto">
           {/* Logo and Nav Links */}
@@ -85,18 +85,18 @@ const Navbar = () => {
               )}
             </button>
 
-            <Link href="/">
-              <div className="flex items-center">
-                <Image
-                  src={theme === 'light' ? logoWhite : logo}
-                  alt="Picture of the logo"
-                  priority
-                  style={{ width: "30px", height: "auto" }}
-                />
-                <span className="text-black dark:text-white text-center text-xl font-semibold pl-2 mt-1">
-                  COLD
-                </span>
-              </div>
+            <Link href="/" className="flex items-center">
+              <Image
+                src={theme === 'light' ? logoWhite : logo}
+                alt="Picture of the logo"
+                priority
+                width={28}
+                height={28}
+                className="w-7 h-7"
+              />
+              <span className="text-black dark:text-white text-lg font-semibold pl-2 flex items-center">
+                COLD
+              </span>
             </Link>
             
             {/* Navigation Links - Desktop */}
@@ -131,13 +131,13 @@ const Navbar = () => {
               <ThemeToggle />
               <Link
                 href="/signup"
-                className="text-black font-bold bg-emerald-500 hover:bg-emerald-400 hover:border-b-emerald-600 border-b-4 rounded-md border-b-emerald-700 px-3 md:px-6 py-1.5 text-xs"
+                className="text-black font-bold bg-emerald-500 hover:bg-emerald-400 hover:border-b-emerald-600 border-b-2 md:border-b-4 rounded-md border-b-emerald-700 px-3 md:px-6 py-1 md:py-1.5 text-xs inline-flex items-center justify-center"
               >
                 Sign up
               </Link>
               <Link
                 href="/login"
-                className="hidden sm:block text-white bg-gray-800 hover:bg-gray-700 hover:border-b-gray-600 border-b-4 rounded-md border-b-gray-900 px-3 md:px-6 py-1.5 text-xs font-semibold"
+                className="hidden sm:inline-flex text-white bg-gray-800 hover:bg-gray-700 hover:border-b-gray-600 border-b-2 md:border-b-4 rounded-md border-b-gray-900 px-3 md:px-6 py-1 md:py-1.5 text-xs font-semibold items-center justify-center"
               >
                 Login
               </Link>
@@ -209,11 +209,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Drawer - inside sticky container */}
       {mobileMenuOpen && (
         <div 
           ref={mobileMenuRef}
-          className="md:hidden fixed inset-x-0 top-16 bg-white dark:bg-[#0d131d] border-t border-gray-200 dark:border-gray-800 z-50 animate-in slide-in-from-top duration-200"
+          className="md:hidden absolute inset-x-0 top-16 bg-white dark:bg-[#0d131d] border-t border-gray-200 dark:border-gray-800 z-40 animate-in slide-in-from-top duration-200 shadow-lg"
         >
           <nav className="py-2" aria-label="Mobile navigation">
             <ul className="flex flex-col">
@@ -252,7 +252,7 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div 
-          className="md:hidden fixed inset-0 top-16 bg-black/50 z-40"
+          className="md:hidden fixed inset-0 bg-black/50 z-30"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}

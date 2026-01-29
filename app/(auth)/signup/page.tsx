@@ -118,23 +118,6 @@ const Signup = () => {
 
   return (
     <section className="min-h-screen bg-gray-100 flex relative">
-      {/* Logo - Top Left - Link to Homepage */}
-      <Link 
-        href="/" 
-        className={`absolute top-6 left-12 z-50 flex items-center gap-2 group transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
-      >
-        <Image 
-          src="/images/groupblack.svg" 
-          width={36} 
-          height={36} 
-          alt="Cold Logo" 
-          className="group-hover:scale-110 transition-transform"
-        />
-        <span className="text-gray-900 text-xl font-bold group-hover:text-emerald-600 transition-colors">
-          COLD
-        </span>
-      </Link>
-
       {/* Left Side - Illustration Area */}
       <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative bg-gradient-to-br from-gray-50 via-white to-gray-100 items-center justify-center overflow-hidden">
         
@@ -248,25 +231,25 @@ const Signup = () => {
       </div>
 
       {/* Right Side - Signup Form */}
-      <div className="w-full lg:w-1/2 xl:w-[45%] flex items-center justify-center px-6 py-12 bg-white">
-        <div className={`w-full max-w-[420px] transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className="w-full lg:w-1/2 xl:w-[45%] flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 bg-white">
+        <div className={`w-full max-w-[400px] sm:max-w-[420px] transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           
           {/* Logo - Mobile */}
-          <div className="lg:hidden flex items-center justify-center mb-10">
-            <Image src="/images/groupblack.svg" width={40} height={40} alt="Cold Logo" priority />
-            <span className="text-gray-900 text-xl font-bold ml-2">COLD</span>
+          <div className="lg:hidden flex items-center justify-center mb-6 sm:mb-10">
+            <Image src="/images/groupblack.svg" width={48} height={48} alt="Cold Logo" priority />
+            <span className="text-gray-900 text-2xl font-bold ml-2">COLD</span>
           </div>
 
           {/* Header */}
-          <div className="mb-10">
-            <h1 className="text-3xl font-bold text-gray-900 mb-3">Create account</h1>
+          <div className="mb-6 sm:mb-10">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">Create account</h1>
             <p className="text-gray-500">
               Get started with your free account today.
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
@@ -281,7 +264,7 @@ const Signup = () => {
                   placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all"
+                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all text-sm sm:text-base"
                   required
                 />
               </div>
@@ -299,7 +282,7 @@ const Signup = () => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all"
+                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all text-sm sm:text-base"
                   required
                 />
               </div>
@@ -317,7 +300,7 @@ const Signup = () => {
                   placeholder="Create a password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all"
+                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all text-sm sm:text-base"
                   required
                 />
               </div>
@@ -335,7 +318,7 @@ const Signup = () => {
                   placeholder="Confirm your password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all"
+                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:bg-white transition-all text-sm sm:text-base"
                   required
                 />
               </div>
@@ -349,10 +332,11 @@ const Signup = () => {
               <input
                 type="checkbox"
                 id="terms"
-                className="w-4 h-4 mt-0.5 rounded border-gray-300 bg-gray-50 text-emerald-600 focus:ring-emerald-500 focus:ring-offset-0"
+                className="appearance-none w-4 h-4 mt-0.5 rounded border border-gray-300 bg-gray-50 checked:bg-emerald-600 checked:border-emerald-600 focus:ring-emerald-500 focus:ring-offset-0 flex-shrink-0 cursor-pointer"
+                style={{ minWidth: '16px', maxWidth: '16px', minHeight: '16px', maxHeight: '16px' }}
                 required
               />
-              <label htmlFor="terms" className="ml-2 text-sm text-gray-500">
+              <label htmlFor="terms" className="ml-2 text-xs sm:text-sm text-gray-500">
                 I agree to the <a href="#" className="text-emerald-600 hover:text-emerald-700">Terms of Service</a> and <a href="#" className="text-emerald-600 hover:text-emerald-700">Privacy Policy</a>
               </label>
             </div>
@@ -371,7 +355,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-400 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full py-3 sm:py-4 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-400 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>

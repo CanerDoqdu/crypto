@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -104,13 +104,67 @@ export default function HeroContent({
   const newsRef = useRef<HTMLDivElement>(null);
   const nftRef = useRef<HTMLDivElement>(null);
 
+  // Setup touch/swipe for NFT scroller - only on 640px+ screens
+  useEffect(() => {
+    // Skip touch handling on small screens
+    if (window.innerWidth < 640) return;
+    
+    const scroller = document.querySelector<HTMLDivElement>('.nft-scroller');
+    if (!scroller) return;
+    
+    const track = scroller.querySelector<HTMLDivElement>('.nft-track');
+    if (!track) return;
+    
+    let isDown = false;
+    let startX: number;
+    let currentTranslate = 0;
+    
+    const getTranslateX = () => {
+      const style = window.getComputedStyle(track);
+      const matrix = new DOMMatrix(style.transform);
+      return matrix.m41;
+    };
+    
+    const handleTouchStart = (e: TouchEvent) => {
+      isDown = true;
+      startX = e.touches[0].pageX;
+      currentTranslate = getTranslateX();
+      track.style.animationPlayState = 'paused';
+    };
+    
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX;
+      const walk = x - startX;
+      track.style.transform = `translate3d(${currentTranslate + walk}px, 0, 0)`;
+    };
+    
+    const handleTouchEnd = () => {
+      isDown = false;
+      setTimeout(() => {
+        track.style.transform = '';
+        track.style.animationPlayState = 'running';
+      }, 2000);
+    };
+    
+    scroller.addEventListener('touchstart', handleTouchStart, { passive: true });
+    scroller.addEventListener('touchmove', handleTouchMove, { passive: true });
+    scroller.addEventListener('touchend', handleTouchEnd, { passive: true });
+    
+    return () => {
+      scroller.removeEventListener('touchstart', handleTouchStart);
+      scroller.removeEventListener('touchmove', handleTouchMove);
+      scroller.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [displayNfts]);
+
   return (
     <section className="flex justify-between min-h-screen lg:h-lvh text-gray-900 dark:text-white bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 dark:from-black dark:via-black dark:to-black relative overflow-x-hidden">
       <HeroSnakeAnimation trendingRef={trendingRef} newsRef={newsRef} nftRef={nftRef} />
       <div className="w-full flex flex-col lg:flex-row justify-between max-w-section mx-auto px-4 sm:px-6 lg:px-0">
           <div className="pt-20 sm:pt-[90px] w-full lg:w-1/2">
             <p className="text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-bold lg:font-normal">Earn with Crypto</p>
-            <p className="min-h-16 sm:min-h-24">
+            <p className="min-h-16 sm:min-h-24" style={{ height: '76px' }}>
               <TypedAnimation />
             </p>
             <p className="text-sm sm:text-lg font-semibold">
@@ -147,16 +201,16 @@ export default function HeroContent({
                 </Link>
               </div>
 
-              <div className="relative overflow-hidden">
-                <div className="absolute left-0 top-0 h-full w-32 bg-gradient-to-r from-white dark:from-gray-950 to-transparent pointer-events-none z-10" />
-                <div className="absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-white dark:from-gray-950 to-transparent pointer-events-none z-10" />
-
+              <div className="relative">
                 {displayNfts.length === 0 ? (
                   <div className="pb-4">
                     <p className="text-gray-400 text-xs">No NFT thumbnails available right now.</p>
                   </div>
                 ) : (
-                  <div className="nft-scroller" data-animated="true">
+                  <div 
+                    className="nft-scroller nft-fade-mask" 
+                    data-animated="true"
+                  >
                     <div className="nft-track">
                       {[...displayNfts, ...displayNfts].map((nft, i) => (
                         <NftImageCard 

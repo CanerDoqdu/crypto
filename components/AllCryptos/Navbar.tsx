@@ -57,18 +57,18 @@ const Navbar = () => {
         <div className="flex justify-between items-center max-w-7xl mx-auto px-6 h-full">
           {/* Logo and Nav Links */}
           <div className="flex items-center gap-8">
-            <Link href="/">
-              <div className="flex items-center">
-                <Image
-                  src={theme === 'light' ? logoWhite : logo}
-                  alt="Picture of the logo"
-                  priority
-                  style={{ width: "30px", height: "auto" }}
-                />
-                <span className="text-black dark:text-white text-center text-xl font-semibold pl-2 mt-1">
-                  COLD
-                </span>
-              </div>
+            <Link href="/" className="flex items-center">
+              <Image
+                src={theme === 'light' ? logoWhite : logo}
+                alt="Picture of the logo"
+                priority
+                width={28}
+                height={28}
+                className="w-7 h-7"
+              />
+              <span className="text-black dark:text-white text-lg font-semibold pl-2 flex items-center">
+                COLD
+              </span>
             </Link>
             
             {/* Navigation Links */}

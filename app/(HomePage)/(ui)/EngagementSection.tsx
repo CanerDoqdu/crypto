@@ -249,8 +249,8 @@ const ClaimYourSpotSection = () => {
             </div>
           </div>
           
-          {/* Right Side - Community Circle Visualization */}
-          <div className="flex-1 mt-16 lg:mt-0 flex items-center justify-center relative">
+          {/* Right Side - Community Circle Visualization - Hidden on small screens */}
+          <div className="hidden md:flex flex-1 mt-16 lg:mt-0 items-center justify-center relative">
             <div className={`relative w-[380px] h-[380px] lg:w-[520px] lg:h-[520px] transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}>
               
               {/* Outer Glow */}

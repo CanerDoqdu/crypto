@@ -1,8 +1,79 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 export default function NftScroller() {
+  const setupTouchScroll = useCallback(() => {
+    const scrollers = document.querySelectorAll<HTMLDivElement>(".nft-scroller");
+    
+    scrollers.forEach((scroller) => {
+      const track = scroller.querySelector<HTMLDivElement>(".nft-track");
+      if (!track) return;
+      
+      let isDown = false;
+      let startX: number;
+      let scrollLeft: number;
+      
+      // Touch events for mobile swipe
+      scroller.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - scroller.offsetLeft;
+        scrollLeft = scroller.scrollLeft;
+        track.style.animationPlayState = 'paused';
+      }, { passive: true });
+      
+      scroller.addEventListener('touchend', () => {
+        isDown = false;
+        setTimeout(() => {
+          if (!isDown) {
+            track.style.animationPlayState = 'running';
+          }
+        }, 2000);
+      }, { passive: true });
+      
+      scroller.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - scroller.offsetLeft;
+        const walk = (x - startX) * 2;
+        scroller.scrollLeft = scrollLeft - walk;
+      }, { passive: true });
+      
+      // Mouse events for desktop drag
+      scroller.addEventListener('mousedown', (e) => {
+        isDown = true;
+        scroller.style.cursor = 'grabbing';
+        startX = e.pageX - scroller.offsetLeft;
+        scrollLeft = scroller.scrollLeft;
+        track.style.animationPlayState = 'paused';
+      });
+      
+      scroller.addEventListener('mouseleave', () => {
+        isDown = false;
+        scroller.style.cursor = 'grab';
+      });
+      
+      scroller.addEventListener('mouseup', () => {
+        isDown = false;
+        scroller.style.cursor = 'grab';
+        setTimeout(() => {
+          if (!isDown) {
+            track.style.animationPlayState = 'running';
+          }
+        }, 2000);
+      });
+      
+      scroller.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scroller.offsetLeft;
+        const walk = (x - startX) * 2;
+        scroller.scrollLeft = scrollLeft - walk;
+      });
+      
+      scroller.style.cursor = 'grab';
+    });
+  }, []);
+
   useEffect(() => {
     const scrollers = document.querySelectorAll<HTMLDivElement>(".nft-scroller");
 
@@ -29,8 +100,10 @@ export default function NftScroller() {
           }
         }
       });
+      
+      setupTouchScroll();
     }
-  }, []);
+  }, [setupTouchScroll]);
 
   return null;
 }

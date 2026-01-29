@@ -99,23 +99,6 @@ const Login = () => {
 
   return (
     <section className="min-h-screen bg-gray-900 flex relative">
-      {/* Logo - Top Left - Link to Homepage */}
-      <Link 
-        href="/" 
-        className={`absolute top-6 left-12 z-50 flex items-center gap-2 group transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
-      >
-        <Image 
-          src="/images/Group.svg" 
-          width={36} 
-          height={36} 
-          alt="Cold Logo" 
-          className="group-hover:scale-110 transition-transform"
-        />
-        <span className="text-white text-xl font-bold group-hover:text-emerald-400 transition-colors">
-          COLD
-        </span>
-      </Link>
-
       {/* Left Side - Illustration Area */}
       <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 items-center justify-center overflow-hidden">
         
@@ -229,25 +212,25 @@ const Login = () => {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 xl:w-[45%] flex items-center justify-center px-6 py-12">
-        <div className={`w-full max-w-[420px] transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className="w-full lg:w-1/2 xl:w-[45%] flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12">
+        <div className={`w-full max-w-[400px] sm:max-w-[420px] transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           
           {/* Logo - Mobile */}
-          <div className="lg:hidden flex items-center justify-center mb-10">
-            <Image src="/images/Group.svg" width={40} height={40} alt="Cold Logo" priority />
-            <span className="text-white text-xl font-bold ml-2">COLD</span>
+          <div className="lg:hidden flex items-center justify-center mb-6 sm:mb-10">
+            <Image src="/images/Group.svg" width={48} height={48} alt="Cold Logo" priority />
+            <span className="text-white text-2xl font-bold ml-2">COLD</span>
           </div>
 
           {/* Header */}
-          <div className="mb-10">
-            <h1 className="text-3xl font-bold text-white mb-3">Sign in</h1>
+          <div className="mb-6 sm:mb-10">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-3">Sign in</h1>
             <p className="text-gray-400">
               Welcome back! Please enter your details.
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
@@ -260,7 +243,7 @@ const Login = () => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-gray-400 focus:bg-gray-800 transition-all"
+                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-gray-400 focus:bg-gray-800 transition-all text-sm sm:text-base"
                   required
                 />
               </div>
@@ -281,7 +264,7 @@ const Login = () => {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-gray-400 focus:bg-gray-800 transition-all"
+                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-gray-400 focus:bg-gray-800 transition-all text-sm sm:text-base"
                   required
                 />
               </div>
@@ -292,9 +275,10 @@ const Login = () => {
               <input
                 type="checkbox"
                 id="remember"
-                className="w-4 h-4 rounded border-gray-600 bg-gray-800 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-0"
+                className="appearance-none w-4 h-4 rounded border border-gray-600 bg-gray-800 checked:bg-emerald-600 checked:border-emerald-600 focus:ring-emerald-500 focus:ring-offset-0 flex-shrink-0 cursor-pointer"
+                style={{ minWidth: '16px', maxWidth: '16px', minHeight: '16px', maxHeight: '16px' }}
               />
-              <label htmlFor="remember" className="ml-2 text-sm text-gray-400">Remember me for 30 days</label>
+              <label htmlFor="remember" className="ml-2 text-xs sm:text-sm text-gray-400">Remember me for 30 days</label>
             </div>
 
             {/* Error */}
@@ -311,7 +295,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-500/50 disabled:text-gray-400 text-black font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full py-3 sm:py-4 bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-500/50 disabled:text-gray-400 text-black font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>

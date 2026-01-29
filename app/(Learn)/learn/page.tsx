@@ -652,10 +652,18 @@ const WidestRangeIllustration = () => {
 
 export default function NewsPage() {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-[#1a1f2e] overflow-hidden">
+    <div className="min-h-screen bg-gray-100 dark:bg-[#1a1f2e] overflow-hidden pt-4 md:pt-0">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-2 lg:px-4 py-4 lg:py-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-24">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-24">
+          
+          {/* Mobile Illustration - Top on mobile, hidden on lg+ */}
+          <div className="flex lg:hidden justify-center w-full -mt-6">
+            <div className="transform scale-[0.65] sm:scale-[0.75] origin-center ml-12 -mb-24 ">
+              <LiquidityIllustration />
+            </div>
+          </div>
+          
           {/* Left Content */}
           <div className="flex-1 max-w-xl pl-2 lg:pl-4">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">

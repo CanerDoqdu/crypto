@@ -100,30 +100,73 @@
 /* CAROUSEL */
 
 .scroller {
-  width: 80%; /* Sayfa genişliğinin %80'i olacak */
-  margin: 0 auto; /* Ortalamak için */
+  width: 95%; /* Mobile: full width */
+  margin: 0 auto;
   overflow: hidden;
   -webkit-mask: linear-gradient(
     90deg,
     transparent,
-    black 20%,
-    black 80%,
+    black 10%,
+    black 90%,
     transparent
   );
-  mask: linear-gradient(90deg, transparent, black 20%, black 80%, transparent);
+  mask: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 640px) {
+  .scroller {
+    width: 90%;
+    -webkit-mask: linear-gradient(
+      90deg,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent
+    );
+    mask: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+  }
+}
+
+@media (min-width: 1024px) {
+  .scroller {
+    width: 80%;
+    -webkit-mask: linear-gradient(
+      90deg,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+    mask: linear-gradient(90deg, transparent, black 20%, black 80%, transparent);
+  }
 }
 
 .scroller__inner {
   display: flex;
-  gap: 70px; /* Kutular arası boşluk */
+  gap: 20px; /* Mobile: smaller gap */
   width: max-content;
-  padding-block: 1rem;
+  padding-block: 0.75rem;
 
   animation: scroll var(--_animation-duration, 40s) linear infinite;
   animation-play-state: running;
 
   &:hover {
     animation-play-state: paused;
+  }
+}
+
+@media (min-width: 640px) {
+  .scroller__inner {
+    gap: 40px;
+    padding-block: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scroller__inner {
+    gap: 70px;
   }
 }
 .scroller[data-direction="right"] {
@@ -202,13 +245,22 @@
 .nft-scroller {
   overflow: hidden;
   transform: translateZ(0);
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* NFT fade mask - bulletproof edge fade that works on ALL resolutions */
+.nft-fade-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .nft-track {
   display: flex;
   flex-wrap: nowrap;
-  gap: 24px;
+  gap: 16px;
   width: max-content;
+  padding-left: 0;
 
   /* GPU acceleration */
   will-change: transform;
@@ -219,7 +271,13 @@
   animation: nft-marquee 50s linear infinite;
 }
 
-/* Pause on hover to allow safe hover effects */
+@media (min-width: 640px) {
+  .nft-track {
+    gap: 24px;
+  }
+}
+
+/* Pause on hover - works on all screen sizes like carousel */
 .nft-scroller:hover .nft-track {
   animation-play-state: paused;
 }

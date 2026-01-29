@@ -24,7 +24,7 @@ export default async function CollectionsStatsPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 dark:from-purple-900/20 via-transparent to-emerald-100/10 dark:to-emerald-900/10" />
         
         {/* Hero Content */}
-        <div className="relative z-10 max-w-[85%] mx-auto py-16 lg:py-24">
+        <div className="relative z-10 max-w-[85%] mx-auto py-8 sm:py-12 md:py-16 lg:py-24">
           <div className="flex flex-col items-center text-center space-y-6">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/30">
@@ -101,7 +101,7 @@ export default async function CollectionsStatsPage() {
       </div>
 
       {/* Table Section */}
-      <div className="max-w-[90%] lg:max-w-[85%] mx-auto py-10">
+      <div className="max-w-[90%] lg:max-w-[85%] mx-auto py-4 md:py-8">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">

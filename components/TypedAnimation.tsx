@@ -30,8 +30,14 @@ const TypedAnimation = () => {
     <span 
       className="text-[64px]" 
       ref={typedElement}
-      style={{ minHeight: '1.2em', display: 'inline-block' }}
-    ></span>
+      style={{ 
+        minHeight: '1.2em', 
+        height: '1.2em',
+        lineHeight: '1.2',
+        display: 'inline-block',
+        verticalAlign: 'top'
+      }}
+    >&nbsp;</span>
   );
 };
 

@@ -101,9 +101,9 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
 
   return (
     <NeonSnakeAnimation>
-      <div className="space-y-2">
+      <div className="space-y-1 sm:space-y-2 overflow-x-auto">
         {/* Table Header */}
-        <div className="hidden lg:grid gap-4 px-6 py-4 bg-gray-900/50 border-b border-white/10 sticky top-0 z-10" style={{ gridTemplateColumns: '60px 30px 1fr 140px 110px 140px 140px' }}>
+        <div className="hidden lg:grid gap-4 px-6 py-4 bg-gray-900/50 border-b border-white/10 sticky top-0 z-10 min-w-[900px]" style={{ gridTemplateColumns: '60px 30px 1fr 140px 110px 140px 140px' }}>
           <div className="text-xs font-bold text-gray-400 uppercase tracking-wider">
             Rank
           </div>
@@ -115,8 +115,8 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
         <div className="text-xs font-bold text-gray-300 uppercase tracking-wider text-right">Market Cap</div>
       </div>
 
-      {/* Table Rows */}
-      <div className="space-y-1">
+      {/* Table Rows - Desktop only */}
+      <div className="hidden lg:block space-y-1">
         {data.map((item, index) => {
           // Handle both combined data and plain collection formats
           const itemData = (item as CombinedNFTData).collection ? (item as CombinedNFTData) : { collection: item, stats: null };
@@ -147,7 +147,7 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
             >
               <div
                 data-nft-row
-                className="hidden lg:grid gap-4 px-6 py-3 hover:bg-white/5 transition-colors duration-150 border-b border-white/5 cursor-pointer"
+                className="grid gap-4 px-6 py-3 hover:bg-white/5 transition-colors duration-150 border-b border-white/5 cursor-pointer min-w-[900px]"
                 style={{ gridTemplateColumns: '60px 30px 1fr 140px 110px 140px 140px' }}
               >
               {/* Rank - using global position in data array */}
@@ -235,7 +235,7 @@ export default function NFTRankingsTable({ initialData }: NFTRankingsTableProps)
       </div>
 
       {/* Mobile Card View */}
-      <div className="lg:hidden space-y-3">
+      <div className="lg:hidden space-y-2 sm:space-y-3">
         {data.map((item, index) => {
           const data = (item as CombinedNFTData).collection ? (item as CombinedNFTData) : { collection: item, stats: null };
           const collection = data.collection;
