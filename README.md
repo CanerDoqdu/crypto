@@ -1,9 +1,9 @@
 # 🚀 Exchange-Style Crypto & NFT Market Dashboard
 
-[![Lighthouse Performance](https://img.shields.io/badge/Performance-100-brightgreen?logo=lighthouse&logoColor=white)](./lighthouse-reports/)
-[![Lighthouse Accessibility](https://img.shields.io/badge/Accessibility-100-brightgreen?logo=lighthouse&logoColor=white)](./lighthouse-reports/)
-[![Lighthouse Best Practices](https://img.shields.io/badge/Best%20Practices-100-brightgreen?logo=lighthouse&logoColor=white)](./lighthouse-reports/)
-[![Lighthouse SEO](https://img.shields.io/badge/SEO-100-brightgreen?logo=lighthouse&logoColor=white)](./lighthouse-reports/)
+[![Lighthouse Performance](https://img.shields.io/badge/Performance-100-brightgreen?logo=lighthouse&logoColor=white)](#-lighthouse-scores)
+[![Lighthouse Accessibility](https://img.shields.io/badge/Accessibility-100-brightgreen?logo=lighthouse&logoColor=white)](#-lighthouse-scores)
+[![Lighthouse Best Practices](https://img.shields.io/badge/Best%20Practices-100-brightgreen?logo=lighthouse&logoColor=white)](#-lighthouse-scores)
+[![Lighthouse SEO](https://img.shields.io/badge/SEO-100-brightgreen?logo=lighthouse&logoColor=white)](#-lighthouse-scores)
 
 Binance-like market experience built with Next.js 15: live crypto listings, deep market boards, curated news, and NFT discovery in a single responsive dashboard.
 
@@ -16,7 +16,7 @@ Binance-like market experience built with Next.js 15: live crypto listings, deep
 | ✅ Best Practices | 100 |
 | 🔍 SEO | 100 |
 
-> Detailed reports available in [lighthouse-reports](./lighthouse-reports/) directory
+> Tested with [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/) using desktop preset
 
 ## 🌟 Live Demo
 
