@@ -73,49 +73,34 @@ const Login = () => {
     };
   }, [handleGoogleResponse]);
 
-  const handleGoogleClick = () => {
-    if ((window as any).google) {
-      // On mobile (< 640px), use rendered button approach which is more reliable
-      if (window.innerWidth < 640) {
-        const googleLoginBtn = document.getElementById('google-signin-btn');
-        if (googleLoginBtn) {
-          // Make the hidden container temporarily visible
-          googleLoginBtn.classList.remove('hidden');
-          googleLoginBtn.classList.add('block');
-          (window as any).google.accounts.id.renderButton(
-            googleLoginBtn,
-            { theme: 'filled_black', size: 'large', width: 280, type: 'standard' }
-          );
-          // Click the rendered Google button after a short delay
-          setTimeout(() => {
-            const btn = googleLoginBtn.querySelector('div[role="button"]') || googleLoginBtn.querySelector('div');
-            if (btn) (btn as HTMLElement).click();
-            // Hide again after click
-            setTimeout(() => {
-              googleLoginBtn.classList.add('hidden');
-              googleLoginBtn.classList.remove('block');
-            }, 100);
-          }, 100);
-        }
-        return;
-      }
-      
-      // On desktop, use One Tap prompt
-      (window as any).google.accounts.id.prompt((notification: any) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Fallback: render the button
-          const googleLoginBtn = document.getElementById('google-signin-btn');
-          if (googleLoginBtn) {
-            (window as any).google.accounts.id.renderButton(
-              googleLoginBtn,
-              { theme: 'filled_black', size: 'large', width: '100%', type: 'standard' }
-            );
-            googleLoginBtn.querySelector('div')?.click();
+  // Render Google button when script loads
+  useEffect(() => {
+    const renderGoogleButton = () => {
+      const googleLoginBtn = document.getElementById('google-signin-btn');
+      if ((window as any).google && googleLoginBtn) {
+        (window as any).google.accounts.id.renderButton(
+          googleLoginBtn,
+          { 
+            theme: 'outline', 
+            size: 'large', 
+            width: 320,
+            type: 'standard',
+            text: 'continue_with',
+            shape: 'rectangular',
+            logo_alignment: 'center'
           }
-        }
-      });
-    }
-  };
+        );
+      }
+    };
+
+    // Try to render immediately if google is already loaded
+    renderGoogleButton();
+    
+    // Also set up a small delay in case script just loaded
+    const timeout = setTimeout(renderGoogleButton, 500);
+    
+    return () => clearTimeout(timeout);
+  }, [mounted]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -346,29 +331,19 @@ const Login = () => {
 
             {/* Social Buttons */}
             <div className="space-y-3">
-              {/* Hidden container for Google button fallback */}
-              <div id="google-signin-btn" className="hidden"></div>
-              <button 
-                type="button" 
-                onClick={handleGoogleClick}
-                disabled={googleLoading}
-                className="w-full flex items-center justify-center gap-3 py-3.5 bg-gray-800 hover:bg-gray-750 border border-gray-700 rounded-lg text-white font-medium transition-all disabled:opacity-50"
-              >
-                {googleLoading ? (
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+              {/* Google Sign-In Button - Official rendered button */}
+              <div 
+                id="google-signin-btn" 
+                className="w-full flex items-center justify-center min-h-[44px]"
+              ></div>
+              {googleLoading && (
+                <div className="flex items-center justify-center py-2">
+                  <svg className="animate-spin h-5 w-5 text-gray-400" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                ) : (
-                  <svg className="w-5 h-5" viewBox="0 0 24 24">
-                    <path fill="#EA4335" d="M5.26620003,9.76452941 C6.19878754,6.93863203 8.85444915,4.90909091 12,4.90909091 C13.6909091,4.90909091 15.2181818,5.50909091 16.4181818,6.49090909 L19.9090909,3 C17.7818182,1.14545455 15.0545455,0 12,0 C7.27006974,0 3.1977497,2.69829785 1.23999023,6.65002441 L5.26620003,9.76452941 Z"/>
-                    <path fill="#34A853" d="M16.0407269,18.0125889 C14.9509167,18.7163016 13.5660892,19.0909091 12,19.0909091 C8.86648613,19.0909091 6.21911939,17.076871 5.27698177,14.2678769 L1.23746264,17.3349879 C3.19279051,21.2936293 7.26500293,24 12,24 C14.9328362,24 17.7353462,22.9573905 19.834192,20.9995801 L16.0407269,18.0125889 Z"/>
-                    <path fill="#4A90E2" d="M19.834192,20.9995801 C22.0291676,18.9520994 23.4545455,15.903663 23.4545455,12 C23.4545455,11.2909091 23.3454545,10.5272727 23.1818182,9.81818182 L12,9.81818182 L12,14.4545455 L18.4363636,14.4545455 C18.1187732,16.013626 17.2662994,17.2212117 16.0407269,18.0125889 L19.834192,20.9995801 Z"/>
-                    <path fill="#FBBC05" d="M5.27698177,14.2678769 C5.03832634,13.556323 4.90909091,12.7937589 4.90909091,12 C4.90909091,11.2182781 5.03443647,10.4668121 5.26620003,9.76452941 L1.23999023,6.65002441 C0.43658717,8.26043162 0,10.0753848 0,12 C0,13.9195484 0.444780743,15.7301709 1.23746264,17.3349879 L5.27698177,14.2678769 Z"/>
-                  </svg>
-                )}
-                Continue with Google
-              </button>
+                </div>
+              )}
             </div>
 
             {/* Google Error */}
