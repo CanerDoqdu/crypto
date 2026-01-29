@@ -78,9 +78,35 @@ const Signup = () => {
 
   const handleGoogleClick = () => {
     if ((window as any).google) {
+      // On mobile (< 640px), use rendered button approach which is more reliable
+      if (window.innerWidth < 640) {
+        const googleLoginBtn = document.getElementById('google-signup-btn');
+        if (googleLoginBtn) {
+          // Make the hidden container temporarily visible
+          googleLoginBtn.classList.remove('hidden');
+          googleLoginBtn.classList.add('block');
+          (window as any).google.accounts.id.renderButton(
+            googleLoginBtn,
+            { theme: 'outline', size: 'large', width: 280, type: 'standard' }
+          );
+          // Click the rendered Google button after a short delay
+          setTimeout(() => {
+            const btn = googleLoginBtn.querySelector('div[role="button"]') || googleLoginBtn.querySelector('div');
+            if (btn) (btn as HTMLElement).click();
+            // Hide again after click
+            setTimeout(() => {
+              googleLoginBtn.classList.add('hidden');
+              googleLoginBtn.classList.remove('block');
+            }, 100);
+          }, 100);
+        }
+        return;
+      }
+      
+      // On desktop, use One Tap prompt
       (window as any).google.accounts.id.prompt((notification: any) => {
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Fallback: render the button in a popup-like way
+          // Fallback: render the button
           const googleLoginBtn = document.getElementById('google-signup-btn');
           if (googleLoginBtn) {
             (window as any).google.accounts.id.renderButton(
