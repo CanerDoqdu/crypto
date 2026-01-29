@@ -236,7 +236,7 @@ const Signup = () => {
           
           {/* Logo - Mobile */}
           <div className="lg:hidden flex items-center justify-center mb-6 sm:mb-10">
-            <Image src="/images/groupblack.svg" width={48} height={48} alt="Cold Logo" priority />
+            <Image src="/images/Groupblack.svg" width={48} height={48} alt="Cold Logo" priority />
             <span className="text-gray-900 text-2xl font-bold ml-2">COLD</span>
           </div>
 
